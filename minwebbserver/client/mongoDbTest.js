@@ -7,32 +7,16 @@ mongoose.connect ('mongodb://localhost/test', {
  db.once('open', function(){
 });
 
-const kittySchema = new mongoose.Schema({
-name: String    
+const personSchema = new mongoose.Schema({
+    name: String,
+    age: Number
 });
 
-const kitten = mongoose.model('kitten', kittySchema);
+personSchema.methods.speak = () => {
+    console.log("Hej");
+    console.log('My name is ${this.name}')
+  };
 
-const silence = new kitten({ name: 'Silence'});
-console.log(silence.name);
-
-kittySchema.methods.speak = function () {
-    const greeting = this.name ? "Meow name is" + this.name : "I dont have a name";
-    console.log(greeting);
-}
-const kitten = mongoose.model('kitten', kittySchema);
-
-const fluffy = new Kitten ({ name: 'fluffy' });
-fluffy.speak();
-
-fluffy.save(function (err, fluffy) {
-    if (err) return console.error(err);
-    fluffy.speak();
-});
-
-Kitten.find(function (err, kittens) {
-    if (err) return console.error(err);
-    console.log(kittens);
-})
-
-Kitten.find({ name: /^fluff/ }, callback);
+const Person = mongoose.model('Person', personSchema);
+const vivian = new Person({ name: 'vivian', age: 18});
+vivian.save()

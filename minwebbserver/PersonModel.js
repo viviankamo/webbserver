@@ -8,7 +8,7 @@ const personSchema = new mongoose.Schema({
   
   const Person = mongoose.model('Person', personSchema);
 
-  exports.createPerson = (name, email, age) => {
+  exports.newPerson = (name, email, age) => {
     var person = new Person({
         name: name, 
         email: email, 
@@ -16,4 +16,8 @@ const personSchema = new mongoose.Schema({
        })
        
        return person
+    }
+    exports.getAllPeople = async () => {
+      let people = await Person.find({})
+      return people
     }
